@@ -44,3 +44,4 @@ jobs:
           script: |
             cd ~/app/mw-manager
             yarn
+            pm2 restart wm-api
