@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres
+    container_name: wm-account-db
+    restart: always
+    ports:
+      - "5431:5432"
+    expose:
+      - "5431"
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=wm-account-db
+    volumes:
+      - pgdata:/data/postgres
+
+  app:
+    build: .
+    container_name: wm-accoubt-back
+    ports:
+      - "3333:3333"
+    volumes:
+      - .:/usr/app
+    links:
+      - db
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
+    driver: local
