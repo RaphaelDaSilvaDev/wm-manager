@@ -1,4 +1,5 @@
 import prismaClient from "../../../../../shared/infra/prisma/prismaClient";
+import { ICreateClientPrisma } from "../../../interfaces/ICreateClient";
 import { IEditClient } from "../../../interfaces/IEditClient";
 import { IClientRepository } from "../../../repositories/IClientRepository";
 import { Client } from "../entities/Client";
@@ -45,6 +46,16 @@ export class ClientRepository implements IClientRepository {
       }
     });
 
+    return client;
+  }
+
+  async findByDocument(document: string): Promise<Client | null> {
+    const client = await prismaClient.client.findFirst({ where: { document } });
+    return client;
+  }
+
+  async createClient(data: ICreateClientPrisma): Promise<Client> {
+    const client = await prismaClient.client.create({ data });
     return client;
   }
 }
