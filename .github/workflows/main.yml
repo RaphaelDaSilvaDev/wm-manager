@@ -33,12 +33,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           source: "., !node_modules"
           target: "~/app/wm-manager"
-          
-      - name: Deploy Migrations
-        run: npx prisma migrate deploy --schema=src/shared/infra/prisma/schema.prisma
-        env:
-          DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
-          
+                    
       - name: Update API
         uses: appleboy/ssh-action@v0.1.7
         with:
@@ -49,4 +44,5 @@ jobs:
           script: |
             cd ~/app/mw-manager
             yarn
+            npx prisma migrate deploy --schema=src/shared/infra/prisma/schema.prisma
             pm2 restart wm-api
