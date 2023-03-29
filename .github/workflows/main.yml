@@ -44,4 +44,5 @@ jobs:
           script: |
             cd ~/app/mw-manager
             yarn
+            npx prisma migrate deploy --schema=./src/shared/infra/prisma/schema.prisma
             pm2 restart wm-api
