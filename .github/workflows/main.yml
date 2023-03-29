@@ -35,7 +35,7 @@ jobs:
           target: "~/app/wm-manager"
           
       - name: Deploy Migrations
-        run: npx prisma migrate deploy
+        run: npx prisma migrate deploy --schema=src/shared/infra/prisma/schema.prisma
         env:
           DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
           
