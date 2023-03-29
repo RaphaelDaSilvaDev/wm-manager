@@ -30,6 +30,7 @@ export interface ICreateClientPrisma {
   cellphoneNumber: string;
   email: string;
   avatar?: string | any;
+  avatar_url?: string | any;
   contractorName: string;
   contractorDocument: string;
   paymentValue: number;

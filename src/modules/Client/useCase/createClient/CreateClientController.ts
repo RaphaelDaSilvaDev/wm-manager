@@ -17,10 +17,11 @@ export class CreateClientController {
       phoneNumber,
       cellphoneNumber,
       email,
-      avatar,
       contractorName,
       contractorDocument
     } = request.body;
+
+    const avatar = request.file?.filename;
 
     const createClientUseCase = container.resolve(CreateClientUseCase);
 

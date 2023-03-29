@@ -1,5 +1,6 @@
 import { addMonths } from "date-fns";
 import { inject, injectable } from "tsyringe";
+import { IStorageProvider } from "../../../../shared/containers/providers/StorageProvider/IStorageProvider";
 import { AppError } from "../../../../shared/errors/AppError";
 import { ICreateClient, ICreateClientPrisma } from "../../interfaces/ICreateClient";
 import { IClientRepository } from "../../repositories/IClientRepository";
@@ -8,7 +9,9 @@ import { IClientRepository } from "../../repositories/IClientRepository";
 export class CreateClientUseCase {
   constructor(
     @inject("ClientRepository")
-    private clientRepository: IClientRepository
+    private clientRepository: IClientRepository,
+    @inject("StorageProvider")
+    private storageProvider: IStorageProvider
   ) {}
 
   async execute(data: ICreateClient) {
@@ -19,6 +22,11 @@ export class CreateClientUseCase {
     }
 
     const clientCode = "10" + Math.floor(1000 + Math.random() * 9000);
+    const verifyClientCodeAlreadyExistst = await this.clientRepository.getClientBySubdomain(clientCode);
+
+    if (verifyClientCodeAlreadyExistst) {
+      throw new AppError("This client Code already exists!");
+    }
 
     const client: ICreateClientPrisma = {
       ...data,
@@ -26,6 +34,16 @@ export class CreateClientUseCase {
       paymentDate: addMonths(new Date(), 1),
       paymentValue: 50
     };
+
+    const fileName = await this.storageProvider.save(data.avatar, "avatar");
+
+    const diskStorage = {
+      local: process.env.APP_URL,
+      s3: process.env.AWS_BUCKET_URL
+    };
+
+    //@ts-ignore
+    client.avatar_url = `${diskStorage[process.env.disk]}/avatar/${fileName}`;
 
     const createdClient = await this.clientRepository.createClient(client);
 

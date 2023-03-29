@@ -1,4 +1,5 @@
 import { v4 as uuidV4 } from "uuid";
+import { Expose } from "class-transformer";
 
 export class Client {
   id?: string;
@@ -16,6 +17,7 @@ export class Client {
   cellphoneNumber!: string;
   email!: string;
   avatar?: string | any;
+  avatar_url?: string | any;
   status!: boolean;
   paymentValue!: number;
   paymentDate!: Date;

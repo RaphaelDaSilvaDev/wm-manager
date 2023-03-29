@@ -9,4 +9,5 @@ export interface IEditClient {
   cellphoneNumber?: string;
   email?: string;
   avatar?: string | any;
+  avatar_url?: string | any;
 }

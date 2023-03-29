@@ -1,15 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { AppError } from "../../../../shared/errors/AppError";
 import { IClientRepository } from "../../repositories/IClientRepository";
-
-interface IResponse {
-  name: string;
-  clientCode: string;
-  avatar: string | null;
-  paymentValue: number;
-  paymentDate: Date;
-}
-
+import { instanceToInstance } from "class-transformer";
 @injectable()
 export class GetClientUseCase {
   constructor(

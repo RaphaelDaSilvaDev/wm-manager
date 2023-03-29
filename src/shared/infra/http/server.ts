@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import "dotenv/config";
 import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import { AppError } from "../../errors/AppError";
@@ -6,12 +7,14 @@ import { router } from "./routes";
 import cors from "cors";
 
 import "../../containers";
+import upload from "../../../config/upload";
 
 const app = express();
 const port = 3332;
 
 app.use(express.json());
 app.use(cors());
+app.use("/avatar", express.static(`${upload.tmpFolder}/avatar`));
 
 app.use(router);
 
