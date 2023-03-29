@@ -11,12 +11,13 @@ export class EditClientController {
       addressNumber,
       addressState,
       addressStreet,
-      avatar,
       cellphoneNumber,
       cep,
       email,
       phoneNumber
     } = request.body;
+
+    const avatar = request.file?.filename;
 
     const editClientUseCase = container.resolve(EditClientUseCase);
 

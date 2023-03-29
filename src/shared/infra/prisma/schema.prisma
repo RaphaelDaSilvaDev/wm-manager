@@ -35,6 +35,7 @@ model Client {
   cellphoneNumber    String
   email              String
   avatar             String?
+  avatar_url         String?
   status             Boolean  @default(true)
   paymentValue       Float
   paymentDate        DateTime
