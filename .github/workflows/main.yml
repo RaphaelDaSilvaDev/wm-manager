@@ -42,7 +42,8 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd ~/app/app/mw-manager
+            cd ~/app/wm-manager
             yarn
+            pwd
             npx prisma migrate deploy --schema=./src/shared/infra/prisma/schema.prisma
             pm2 restart wm-api
