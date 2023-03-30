@@ -11,4 +11,12 @@ export class PaymentRepository implements IPaymentRepository {
 
     return payment;
   }
+
+  async getPaymentById(id: string): Promise<Payment | null> {
+    const payment = await prismaClient.payments.findUnique({
+      where: { id },
+      include: { Client: true, Plans: true }
+    });
+    return payment;
+  }
 }
