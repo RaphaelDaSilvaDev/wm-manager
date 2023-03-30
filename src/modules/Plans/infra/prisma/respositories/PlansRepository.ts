@@ -16,4 +16,9 @@ export class PlansRepository implements IPlansRepository {
 
     return plan;
   }
+
+  async findById(id: string): Promise<Plans | null> {
+    const plan = await prismaClient.plans.findUnique({ where: { id } });
+    return plan;
+  }
 }
