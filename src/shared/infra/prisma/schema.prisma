@@ -20,7 +20,7 @@ model User {
 }
 
 model Client {
-  id                 String   @id() @default(uuid())
+  id                 String     @id() @default(uuid())
   name               String
   socialName         String
   document           String
@@ -36,11 +36,36 @@ model Client {
   email              String
   avatar             String?
   avatar_url         String?
-  status             Boolean  @default(true)
-  paymentValue       Float
-  paymentDate        DateTime
+  status             Boolean    @default(true)
   contractorName     String
   contractorDocument String
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt()
+  Plans              Plans?     @relation(fields: [plansId], references: [id])
+  plansId            String?
+  payments           Payments[]
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt()
+}
+
+model Plans {
+  id          String     @id() @default(uuid())
+  name        String
+  description String?
+  itens       String[]
+  dueDays     String
+  value       Float
+  client      Client[]
+  payments    Payments[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt()
+}
+
+model Payments {
+  id        String   @id() @default(uuid())
+  Plans     Plans    @relation(fields: [plansId], references: [id])
+  plansId   String
+  Client    Client   @relation(fields: [clientId], references: [id])
+  clientId  String
+  dueDate   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
 }
