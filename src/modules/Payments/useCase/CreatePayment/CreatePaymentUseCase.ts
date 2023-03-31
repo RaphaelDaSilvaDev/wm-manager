@@ -33,7 +33,7 @@ export class CreatePaymentUseCase {
 
     const payload: ICreatePayment = {
       ...data,
-      dueDate
+      date: dueDate
     };
 
     const payment = await this.paymentRepository.create(payload);
