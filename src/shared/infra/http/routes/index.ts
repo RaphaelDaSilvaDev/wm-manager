@@ -11,7 +11,7 @@ router.use("/client", clientRoute);
 router.use("/plan", planRoute);
 router.use("/payment", paymenteRoute);
 
-router.put("/webhook(/pix)?", (request, response) => {
+router.post("/webhook(/pix)?", (request, response) => {
   console.log(request.body);
   response.status(200).send();
 });
