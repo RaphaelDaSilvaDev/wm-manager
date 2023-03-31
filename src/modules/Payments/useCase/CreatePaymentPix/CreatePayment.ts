@@ -15,7 +15,7 @@ export async function CreatePaymentPix({ clientDocument, clientName, price, expi
   const options = {
     // PRODUÇÃO = false
     // HOMOLOGAÇÃO = true
-    sandbox: true,
+    sandbox: false,
     client_id: process.env.EFI_CLIENT_ID,
     client_secret: process.env.EFI_KEY,
     certificate: certPath
@@ -34,11 +34,12 @@ export async function CreatePaymentPix({ clientDocument, clientName, price, expi
     valor: {
       original: price.toFixed(2)
     },
-    chave: "SUACHAVEPIX" // Informe sua chave Pix cadastrada na gerencianet
+    chave: "03319c51-6704-4d56-8b14-97eabd9efe0f" // Informe sua chave Pix cadastrada na gerencianet
   };
 
   const charge = await gerencianet.pixCreateImmediateCharge([], body);
   const request = await GenereteQRCode(charge.loc.id, gerencianet);
+  console.log({ charge, request });
   return request;
 }
 
