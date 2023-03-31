@@ -26,13 +26,11 @@ export class ConfirmPaymentUseCase {
 
     const createPaymentUseCase = container.resolve(CreatePaymentUseCase);
 
-    const newPayment = await createPaymentUseCase.execute({
+    await createPaymentUseCase.execute({
       clientId: payment.clientId,
       plansId: payment.plansId,
       date: payment.dueDate
     });
-
-    console.log(newPayment);
 
     return;
   }

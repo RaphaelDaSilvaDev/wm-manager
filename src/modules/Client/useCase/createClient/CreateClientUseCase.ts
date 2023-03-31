@@ -1,8 +1,10 @@
-import { inject, injectable } from "tsyringe";
+import { container, inject, injectable } from "tsyringe";
 import { IStorageProvider } from "../../../../shared/containers/providers/StorageProvider/IStorageProvider";
 import { AppError } from "../../../../shared/errors/AppError";
 import { ICreateClient, ICreateClientPrisma } from "../../interfaces/ICreateClient";
 import { IClientRepository } from "../../repositories/IClientRepository";
+import { CreatePaymentUseCase } from "../../../Payments/useCase/CreatePayment/CreatePaymentUseCase";
+import { IPlansRepository } from "../../../Plans/repositories/IPlansRepository";
 
 @injectable()
 export class CreateClientUseCase {
@@ -10,7 +12,9 @@ export class CreateClientUseCase {
     @inject("ClientRepository")
     private clientRepository: IClientRepository,
     @inject("StorageProvider")
-    private storageProvider: IStorageProvider
+    private storageProvider: IStorageProvider,
+    @inject("PlansRepository")
+    private plansRepository: IPlansRepository
   ) {}
 
   async execute(data: ICreateClient) {
@@ -25,6 +29,12 @@ export class CreateClientUseCase {
 
     if (verifyClientCodeAlreadyExistst) {
       throw new AppError("This client Code already exists!");
+    }
+
+    const verifyPlanExists = await this.plansRepository.findById(data.plansId);
+
+    if (!verifyPlanExists) {
+      throw new AppError("This plan not extist!");
     }
 
     const client: ICreateClientPrisma = {

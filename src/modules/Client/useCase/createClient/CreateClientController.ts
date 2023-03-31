@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { CreateClientUseCase } from "./CreateClientUseCase";
+import { CreatePaymentUseCase } from "../../../Payments/useCase/CreatePayment/CreatePaymentUseCase";
 
 export class CreateClientController {
   async handle(request: Request, response: Response) {
@@ -44,6 +45,13 @@ export class CreateClientController {
       avatar,
       plansId
     });
+
+    const createPaymentUseCase = container.resolve(CreatePaymentUseCase);
+
+    if (client.id) {
+      const payment = await createPaymentUseCase.execute({ clientId: client.id, plansId: client.plansId });
+      console.log(payment);
+    }
 
     return response.json(client);
   }
