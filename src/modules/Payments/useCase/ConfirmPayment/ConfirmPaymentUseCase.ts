@@ -1,8 +1,6 @@
 import { container, inject, injectable } from "tsyringe";
 import { IConfirmPayment } from "../../interfaces/IConfirmPayment";
 import { IPaymentRepository } from "../../repositories/IPaymentRepository";
-import { IClientRepository } from "../../../Client/repositories/IClientRepository";
-import { IPlansRepository } from "../../../Plans/repositories/IPlansRepository";
 import { AppError } from "../../../../shared/errors/AppError";
 import { CreatePaymentUseCase } from "../CreatePayment/CreatePaymentUseCase";
 
@@ -28,11 +26,13 @@ export class ConfirmPaymentUseCase {
 
     const createPaymentUseCase = container.resolve(CreatePaymentUseCase);
 
-    await createPaymentUseCase.execute({
+    const newPayment = await createPaymentUseCase.execute({
       clientId: payment.clientId,
       plansId: payment.plansId,
       date: payment.dueDate
     });
+
+    console.log(newPayment);
 
     return;
   }
