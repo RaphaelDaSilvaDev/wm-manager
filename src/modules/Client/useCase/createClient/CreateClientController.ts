@@ -49,8 +49,7 @@ export class CreateClientController {
     const createPaymentUseCase = container.resolve(CreatePaymentUseCase);
 
     if (client.id) {
-      const payment = await createPaymentUseCase.execute({ clientId: client.id, plansId: client.plansId });
-      console.log(payment);
+      await createPaymentUseCase.execute({ clientId: client.id, plansId: client.plansId });
     }
 
     return response.json(client);

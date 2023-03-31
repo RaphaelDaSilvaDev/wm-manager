@@ -10,7 +10,6 @@ export class ConfirmPaymentController {
 
     pix.map(async (item: any) => {
       const payment = await confirmPaymentUseCase.execute(item);
-      console.log(payment);
 
       const createPaymentUseCase = container.resolve(CreatePaymentUseCase);
 
@@ -19,8 +18,6 @@ export class ConfirmPaymentController {
         plansId: payment.plansId,
         date: payment.dueDate
       });
-
-      console.log(newPayment);
     });
 
     response.status(200).send();
