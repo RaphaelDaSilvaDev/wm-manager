@@ -12,7 +12,7 @@ interface Props {
 }
 
 export async function CreatePaymentPix({ clientDocument, clientName, price, expiresSeconds }: Props) {
-  const certPath = path.resolve(__dirname, "../../../../certs/" + process.env.CERT_NAME);
+  const certPath = path.resolve("./src/certs/" + process.env.CERT_NAME);
   console.log(certPath);
   const options = {
     // PRODUÇÃO = false
