@@ -70,7 +70,10 @@ model Payments {
   paymentQRCodeText    String?
   paymentQRCodePrice   Float?
   paymentQRCodeDueDate DateTime?
-  status               Boolean   @default(false)
+  paymentTxId          String?
+  paymentE2EId         String?
+  paymentDate          DateTime?
+  status               String    @default("pending")
   createdAt            DateTime  @default(now())
   updatedAt            DateTime  @updatedAt()
 }

@@ -49,10 +49,11 @@ export class GeneretePixPaymentUseCase {
 
     await this.paymentRepository.addPixToPayment(
       {
-        paymentQRCode: generatePix.imagemQrcode,
-        paymentQRCodeText: generatePix.qrcode,
+        paymentQRCode: generatePix.request.imagemQrcode,
+        paymentQRCodeText: generatePix.request.qrcode,
         paymentQRCodeDueDate: due,
-        paymentQRCodePrice: generatePix.price
+        paymentQRCodePrice: plan.value,
+        paymentTxId: generatePix.charge.txid
       },
       payment.id
     );
@@ -63,7 +64,7 @@ export class GeneretePixPaymentUseCase {
       clientDocument: client.document,
       price: plan.value,
       due,
-      generatePix
+      generatePix: generatePix.request
     };
   }
 }
