@@ -28,7 +28,7 @@ export class CreatePaymentUseCase {
     }
 
     const dueDate = data.date
-      ? addDays(new Date(data.date), Number(plan.dueDays))
+      ? addDays(data.date, Number(plan.dueDays))
       : addDays(new Date(), Number(plan.dueDays));
 
     const payload: ICreatePayment = {
