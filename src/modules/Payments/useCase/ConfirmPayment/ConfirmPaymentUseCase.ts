@@ -22,16 +22,8 @@ export class ConfirmPaymentUseCase {
     payment.paymentE2EId = data.endToEndId;
     payment.paymentDate = new Date(data.horario);
 
-    await this.paymentRepository.update(payment);
+    const updatedPayment = await this.paymentRepository.update(payment);
 
-    const createPaymentUseCase = container.resolve(CreatePaymentUseCase);
-
-    await createPaymentUseCase.execute({
-      clientId: payment.clientId,
-      plansId: payment.plansId,
-      date: payment.dueDate
-    });
-
-    return;
+    return updatedPayment;
   }
 }
