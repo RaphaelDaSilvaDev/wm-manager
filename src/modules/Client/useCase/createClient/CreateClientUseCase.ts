@@ -1,4 +1,3 @@
-import { addMonths } from "date-fns";
 import { inject, injectable } from "tsyringe";
 import { IStorageProvider } from "../../../../shared/containers/providers/StorageProvider/IStorageProvider";
 import { AppError } from "../../../../shared/errors/AppError";
@@ -30,9 +29,7 @@ export class CreateClientUseCase {
 
     const client: ICreateClientPrisma = {
       ...data,
-      clientCode,
-      paymentDate: addMonths(new Date(), 1),
-      paymentValue: 50
+      clientCode
     };
 
     const fileName = await this.storageProvider.save(data.avatar, "avatar");

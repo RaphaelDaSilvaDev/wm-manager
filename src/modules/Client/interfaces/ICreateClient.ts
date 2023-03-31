@@ -14,6 +14,7 @@ export interface ICreateClient {
   avatar?: string | any;
   contractorName: string;
   contractorDocument: string;
+  plansId: string;
 }
 
 export interface ICreateClientPrisma {
@@ -33,7 +34,6 @@ export interface ICreateClientPrisma {
   avatar_url?: string | any;
   contractorName: string;
   contractorDocument: string;
-  paymentValue: number;
-  paymentDate: Date;
+  plansId: string;
   clientCode: string;
 }
