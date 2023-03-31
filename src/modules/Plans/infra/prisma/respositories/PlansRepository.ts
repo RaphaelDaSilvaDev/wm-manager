@@ -21,4 +21,9 @@ export class PlansRepository implements IPlansRepository {
     const plan = await prismaClient.plans.findUnique({ where: { id } });
     return plan;
   }
+
+  async listAll(): Promise<Plans[]> {
+    const plans = await prismaClient.plans.findMany();
+    return plans;
+  }
 }
