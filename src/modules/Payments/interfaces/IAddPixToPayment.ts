@@ -3,4 +3,5 @@ export interface IAddPixToPayment {
   paymentQRCodeText: string;
   paymentQRCodePrice: number;
   paymentQRCodeDueDate: Date;
+  paymentTxId: string;
 }

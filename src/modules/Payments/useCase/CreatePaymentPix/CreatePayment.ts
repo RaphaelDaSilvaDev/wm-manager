@@ -2,6 +2,7 @@
 import Gerencianet from "gn-api-sdk-node";
 import fs from "fs";
 import path from "path";
+import { response } from "express";
 
 interface Props {
   clientDocument: string;
@@ -15,7 +16,7 @@ export async function CreatePaymentPix({ clientDocument, clientName, price, expi
   const options = {
     // PRODUÇÃO = false
     // HOMOLOGAÇÃO = true
-    sandbox: false,
+    sandbox: true,
     client_id: process.env.EFI_CLIENT_ID,
     client_secret: process.env.EFI_KEY,
     certificate: certPath
@@ -39,8 +40,11 @@ export async function CreatePaymentPix({ clientDocument, clientName, price, expi
 
   const charge = await gerencianet.pixCreateImmediateCharge([], body);
   const request = await GenereteQRCode(charge.loc.id, gerencianet);
-  console.log({ charge, request });
-  return request;
+  const objctToRerturn = {
+    charge,
+    request
+  };
+  return objctToRerturn;
 }
 
 async function GenereteQRCode(id: string, gerencianet: any) {

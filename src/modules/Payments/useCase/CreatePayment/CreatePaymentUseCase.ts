@@ -8,6 +8,7 @@ import { IPaymentRepository } from "../../repositories/IPaymentRepository";
 interface Request {
   plansId: string;
   clientId: string;
+  date?: Date;
 }
 
 @injectable()
@@ -26,7 +27,9 @@ export class CreatePaymentUseCase {
       throw new AppError("Plan not Found!");
     }
 
-    const dueDate = addDays(new Date(), Number(plan.dueDays));
+    const dueDate = data.date
+      ? addDays(new Date(data.date), Number(plan.dueDays))
+      : addDays(new Date(), Number(plan.dueDays));
 
     const payload: ICreatePayment = {
       ...data,

@@ -9,6 +9,10 @@ export class Payment {
   paymentQRCodeText!: string | null;
   paymentQRCodePrice!: number | null;
   paymentQRCodeDueDate!: Date | null;
+  paymentTxId!: string | null;
+  paymentE2EId!: string | null;
+  paymentDate!: Date | null;
+  status!: string;
   createdAt!: Date;
   updatedAt!: Date;
 
