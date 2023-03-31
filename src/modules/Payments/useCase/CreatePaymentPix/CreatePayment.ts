@@ -16,7 +16,7 @@ export async function CreatePaymentPix({ clientDocument, clientName, price, expi
   const options = {
     // PRODUÇÃO = false
     // HOMOLOGAÇÃO = true
-    sandbox: true,
+    sandbox: process.env.ENV === "local" ? true : false,
     client_id: process.env.EFI_CLIENT_ID,
     client_secret: process.env.EFI_KEY,
     certificate: certPath
