@@ -18,7 +18,8 @@ export class CreateClientController {
       cellphoneNumber,
       email,
       contractorName,
-      contractorDocument
+      contractorDocument,
+      plansId
     } = request.body;
 
     const avatar = request.file?.filename;
@@ -40,7 +41,8 @@ export class CreateClientController {
       contractorName,
       email,
       phoneNumber,
-      avatar
+      avatar,
+      plansId
     });
 
     return response.json(client);

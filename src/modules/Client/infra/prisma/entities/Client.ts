@@ -19,10 +19,9 @@ export class Client {
   avatar?: string | any;
   avatar_url?: string | any;
   status!: boolean;
-  paymentValue!: number;
-  paymentDate!: Date;
   contractorName!: string;
   contractorDocument!: string;
+  plansId!: string;
   createdAt!: Date;
   updatedAt!: Date;
 
