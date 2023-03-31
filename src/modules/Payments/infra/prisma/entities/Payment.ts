@@ -1,7 +1,7 @@
 import { v4 as uuidV4 } from "uuid";
 
 export class Payment {
-  id!: string;
+  id?: string;
   plansId!: string;
   clientId!: string;
   dueDate!: Date;

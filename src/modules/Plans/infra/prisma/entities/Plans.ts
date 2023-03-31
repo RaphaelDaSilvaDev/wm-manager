@@ -1,7 +1,7 @@
 import { v4 as uuidV4 } from "uuid";
 
 export class Plans {
-  id!: string;
+  id?: string;
   name!: string;
   description?: string | null;
   itens!: string[];
