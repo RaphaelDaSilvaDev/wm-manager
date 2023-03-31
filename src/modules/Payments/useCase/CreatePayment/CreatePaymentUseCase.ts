@@ -27,13 +27,17 @@ export class CreatePaymentUseCase {
       throw new AppError("Plan not Found!");
     }
 
-    const dueDate = data.date
-      ? addDays(data.date, Number(plan.dueDays))
-      : addDays(new Date(), Number(plan.dueDays));
+    let dueDate;
+    if (data.date) {
+      dueDate = addDays(data.date, Number(plan.dueDays));
+    } else {
+      dueDate = addDays(new Date(), Number(plan.dueDays));
+    }
 
     const payload: ICreatePayment = {
-      ...data,
-      date: dueDate
+      clientId: data.clientId,
+      plansId: data.plansId,
+      dueDate
     };
 
     const payment = await this.paymentRepository.create(payload);
