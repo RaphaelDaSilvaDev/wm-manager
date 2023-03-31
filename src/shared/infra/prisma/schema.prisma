@@ -60,12 +60,17 @@ model Plans {
 }
 
 model Payments {
-  id        String   @id() @default(uuid())
-  Plans     Plans    @relation(fields: [plansId], references: [id])
-  plansId   String
-  Client    Client   @relation(fields: [clientId], references: [id])
-  clientId  String
-  dueDate   DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt()
+  id                   String    @id() @default(uuid())
+  Plans                Plans     @relation(fields: [plansId], references: [id])
+  plansId              String
+  Client               Client    @relation(fields: [clientId], references: [id])
+  clientId             String
+  dueDate              DateTime
+  paymentQRCode        String?
+  paymentQRCodeText    String?
+  paymentQRCodePrice   Float?
+  paymentQRCodeDueDate DateTime?
+  status               Boolean   @default(false)
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt()
 }

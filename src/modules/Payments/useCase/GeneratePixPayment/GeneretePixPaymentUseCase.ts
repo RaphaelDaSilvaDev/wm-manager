@@ -45,12 +45,24 @@ export class GeneretePixPaymentUseCase {
       expiresSeconds
     });
 
+    const due = addSeconds(new Date(), expiresSeconds);
+
+    await this.paymentRepository.addPixToPayment(
+      {
+        paymentQRCode: generatePix.imagemQrcode,
+        paymentQRCodeText: generatePix.qrcode,
+        paymentQRCodeDueDate: due,
+        paymentQRCodePrice: generatePix.price
+      },
+      payment.id
+    );
+
     return {
       clientName: client.name,
       clientSocialName: client.socialName,
       clientDocument: client.document,
       price: plan.value,
-      due: addSeconds(new Date(), expiresSeconds),
+      due,
       generatePix
     };
   }

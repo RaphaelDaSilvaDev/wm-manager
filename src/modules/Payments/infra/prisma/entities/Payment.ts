@@ -5,6 +5,10 @@ export class Payment {
   plansId!: string;
   clientId!: string;
   dueDate!: Date;
+  paymentQRCode!: string | null;
+  paymentQRCodeText!: string | null;
+  paymentQRCodePrice!: number | null;
+  paymentQRCodeDueDate!: Date | null;
   createdAt!: Date;
   updatedAt!: Date;
 
