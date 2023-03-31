@@ -5,10 +5,9 @@ import { ConfirmPaymentUseCase } from "./ConfirmPaymentUseCase";
 export class ConfirmPaymentController {
   async handle(request: Request, response: Response) {
     const { pix } = request.body;
-    console.log(pix[0]);
     const confirmPaymentUseCase = container.resolve(ConfirmPaymentUseCase);
 
-    await confirmPaymentUseCase.execute(pix[0]);
+    pix.map(async (item: any) => await confirmPaymentUseCase.execute(item));
 
     response.status(200).send();
   }
