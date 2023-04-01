@@ -38,7 +38,11 @@ export class PaymentRepository implements IPaymentRepository {
   }
 
   async listAllPaymentsByClient(clientId: string): Promise<Payment[]> {
-    const payments = await prismaClient.payments.findMany({ where: { clientId } });
+    const payments = await prismaClient.payments.findMany({
+      where: { clientId },
+      include: { Plans: true, Client: true },
+      orderBy: { dueDate: "desc" }
+    });
     return payments;
   }
 }

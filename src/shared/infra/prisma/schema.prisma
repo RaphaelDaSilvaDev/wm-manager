@@ -73,7 +73,7 @@ model Payments {
   paymentTxId          String?
   paymentE2EId         String?
   paymentDate          DateTime?
-  status               String    @default("pending")
+  status               String    @default("unpaid")
   createdAt            DateTime  @default(now())
   updatedAt            DateTime  @updatedAt()
 }
