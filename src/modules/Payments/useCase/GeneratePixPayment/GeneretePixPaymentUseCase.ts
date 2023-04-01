@@ -53,7 +53,8 @@ export class GeneretePixPaymentUseCase {
         paymentQRCodeText: generatePix.request.qrcode,
         paymentQRCodeDueDate: due,
         paymentQRCodePrice: plan.value,
-        paymentTxId: generatePix.charge.txid
+        paymentTxId: generatePix.charge.txid,
+        status: "pending_payment"
       },
       payment.id
     );
