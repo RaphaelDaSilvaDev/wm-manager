@@ -40,6 +40,6 @@ async function GenereteQRCode(id: string, gerencianet: any) {
     id: id
   };
 
-  const response = await gerencianet.pixGenerateQRCode(params).then((response: any) => console.log(response)).catch((response: any) => console.log(response)
+  const response = await gerencianet.pixGenerateQRCode(params).then((response: any) => console.log(response)).catch((response: any) => console.log(response))
   return response;
 }
