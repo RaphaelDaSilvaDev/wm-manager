@@ -20,6 +20,8 @@ export class GeneretePixPaymentUseCase {
   async execute(paymentId: string) {
     const payment = await this.paymentRepository.getPaymentById(paymentId);
 
+    console.log(payment);
+
     if (!payment) {
       throw new AppError("Payment not found!");
     }
@@ -38,14 +40,6 @@ export class GeneretePixPaymentUseCase {
 
     const expiresSeconds = 3600;
 
-    console.log("OK");
-    console.log({
-      clientDocument: client.contractorDocument,
-      clientName: client.name,
-      price: plan.value,
-      expiresSeconds
-    });
-
     const generatePix = await CreatePaymentPix({
       clientDocument: client.contractorDocument,
       clientName: client.name,
@@ -54,6 +48,10 @@ export class GeneretePixPaymentUseCase {
     });
 
     const due = addSeconds(new Date(), expiresSeconds);
+
+    if (!payment.id) {
+      throw new AppError("Payment without Id");
+    }
 
     await this.paymentRepository.addPixToPayment(
       {
