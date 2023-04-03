@@ -13,7 +13,7 @@ export class ConfirmPaymentController {
 
       const createPaymentUseCase = container.resolve(CreatePaymentUseCase);
 
-      const newPayment = await createPaymentUseCase.execute({
+      await createPaymentUseCase.execute({
         clientId: payment.clientId,
         plansId: payment.plansId,
         date: payment.dueDate

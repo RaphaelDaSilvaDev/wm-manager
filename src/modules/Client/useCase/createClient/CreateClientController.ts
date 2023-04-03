@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { CreateClientUseCase } from "./CreateClientUseCase";
 import { CreatePaymentUseCase } from "../../../Payments/useCase/CreatePayment/CreatePaymentUseCase";
+import { addDays } from "date-fns";
 
 export class CreateClientController {
   async handle(request: Request, response: Response) {
@@ -49,7 +50,11 @@ export class CreateClientController {
     const createPaymentUseCase = container.resolve(CreatePaymentUseCase);
 
     if (client.id) {
-      await createPaymentUseCase.execute({ clientId: client.id, plansId: client.plansId });
+      await createPaymentUseCase.execute({
+        clientId: client.id,
+        plansId: client.plansId,
+        date: addDays(new Date(), 7)
+      });
     }
 
     return response.json(client);

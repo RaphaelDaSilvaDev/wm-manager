@@ -4,7 +4,7 @@ import { AppError } from "../../../../shared/errors/AppError";
 import { IClientRepository } from "../../../Client/repositories/IClientRepository";
 import { IPlansRepository } from "../../../Plans/repositories/IPlansRepository";
 import { IPaymentRepository } from "../../repositories/IPaymentRepository";
-import { CreatePaymentPix } from "../CreatePaymentPix/CreatePayment";
+import { CreatePaymentPix } from "../../../../utils/CreatePaymentPix/CreatePayment";
 
 @injectable()
 export class GeneretePixPaymentUseCase {

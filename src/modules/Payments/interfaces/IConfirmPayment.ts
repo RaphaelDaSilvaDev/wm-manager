@@ -5,4 +5,15 @@ export interface IConfirmPayment {
   valor: string;
   horario: string;
   infoPagador: string;
+  devolucoes?: Devolution;
+}
+
+interface Devolution {
+  id: string;
+  rtrId: string;
+  valor: string;
+  horario: {
+    solicitacao: string;
+  };
+  status: string;
 }
