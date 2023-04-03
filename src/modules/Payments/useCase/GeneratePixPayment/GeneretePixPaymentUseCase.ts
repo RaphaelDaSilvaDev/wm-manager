@@ -53,7 +53,7 @@ export class GeneretePixPaymentUseCase {
       throw new AppError("Payment without Id");
     }
 
-    await this.paymentRepository.addPixToPayment(
+    const newPayment = await this.paymentRepository.addPixToPayment(
       {
         paymentQRCode: generatePix.request.imagemQrcode,
         paymentQRCodeText: generatePix.request.qrcode,
@@ -64,6 +64,8 @@ export class GeneretePixPaymentUseCase {
       },
       payment.id
     );
+
+    console.log(newPayment);
 
     return {
       clientName: client.name,

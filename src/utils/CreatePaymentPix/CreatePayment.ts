@@ -27,9 +27,8 @@ export async function CreatePaymentPix({ clientDocument, clientName, price, expi
   };
 
   const charge = await gerencianet.pixCreateImmediateCharge([], body);
-  const request = await GenereteQRCode(charge.loc.id, gerencianet)
-    .then((response) => console.log(response))
-    .catch((response) => console.log(response));
+  const request = await GenereteQRCode(charge.loc.id, gerencianet);
+
   const objctToRerturn = {
     charge,
     request
@@ -42,9 +41,6 @@ async function GenereteQRCode(id: string, gerencianet: any) {
     id: id
   };
 
-  const response = await gerencianet
-    .pixGenerateQRCode(params)
-    .then((response: any) => console.log(response))
-    .catch((response: any) => console.log(response));
+  const response = await gerencianet.pixGenerateQRCode(params);
   return response;
 }
