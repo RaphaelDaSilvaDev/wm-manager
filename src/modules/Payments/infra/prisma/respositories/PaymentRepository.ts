@@ -32,8 +32,11 @@ export class PaymentRepository implements IPaymentRepository {
     return payment;
   }
 
-  async update(data: Payment): Promise<Payment> {
-    const payment = await prismaClient.payments.update({ where: { id: data.id }, data: data });
+  async update({ status, paymentE2EId, paymentDate, id }: Payment): Promise<Payment> {
+    const payment = await prismaClient.payments.update({
+      where: { id },
+      data: { status, paymentE2EId, paymentDate }
+    });
     return payment;
   }
 

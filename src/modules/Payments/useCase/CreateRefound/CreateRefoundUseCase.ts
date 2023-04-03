@@ -38,7 +38,9 @@ export class CreateRefoundUseCase {
       value: refoundValue
     });
 
-    payment.status = "refunded";
+    payment.status = "pending_refund";
+
+    console.log(payment);
 
     await this.paymentRepository.update(payment);
 
