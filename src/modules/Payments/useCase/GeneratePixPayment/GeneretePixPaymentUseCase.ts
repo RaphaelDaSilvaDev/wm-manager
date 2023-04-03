@@ -38,6 +38,14 @@ export class GeneretePixPaymentUseCase {
 
     const expiresSeconds = 3600;
 
+    console.log("OK");
+    console.log({
+      clientDocument: client.contractorDocument,
+      clientName: client.name,
+      price: plan.value,
+      expiresSeconds
+    });
+
     const generatePix = await CreatePaymentPix({
       clientDocument: client.contractorDocument,
       clientName: client.name,
@@ -46,15 +54,6 @@ export class GeneretePixPaymentUseCase {
     });
 
     const due = addSeconds(new Date(), expiresSeconds);
-
-    console.log({
-      paymentQRCode: generatePix.request.imagemQrcode,
-      paymentQRCodeText: generatePix.request.qrcode,
-      paymentQRCodeDueDate: due,
-      paymentQRCodePrice: plan.value,
-      paymentTxId: generatePix.charge.txid,
-      status: "pending_payment"
-    });
 
     await this.paymentRepository.addPixToPayment(
       {
