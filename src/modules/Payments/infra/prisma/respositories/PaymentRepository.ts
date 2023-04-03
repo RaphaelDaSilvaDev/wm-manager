@@ -44,7 +44,7 @@ export class PaymentRepository implements IPaymentRepository {
     const payments = await prismaClient.payments.findMany({
       where: { clientId },
       include: { Plans: true, Client: true },
-      orderBy: { dueDate: "desc" }
+      orderBy: { createdAt: "desc" }
     });
     return payments;
   }
