@@ -37,7 +37,8 @@ export class CreatePaymentUseCase {
     const payload: ICreatePayment = {
       clientId: data.clientId,
       plansId: data.plansId,
-      dueDate
+      dueDate,
+      status: "unpaid"
     };
 
     const payment = await this.paymentRepository.create(payload);
