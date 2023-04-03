@@ -65,8 +65,6 @@ export class GeneretePixPaymentUseCase {
       payment.id
     );
 
-    console.log(newPayment);
-
     return {
       clientName: client.name,
       clientSocialName: client.socialName,
