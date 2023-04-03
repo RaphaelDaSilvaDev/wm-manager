@@ -20,8 +20,6 @@ export class GeneretePixPaymentUseCase {
   async execute(paymentId: string) {
     const payment = await this.paymentRepository.getPaymentById(paymentId);
 
-    console.log(payment);
-
     if (!payment) {
       throw new AppError("Payment not found!");
     }
@@ -53,7 +51,7 @@ export class GeneretePixPaymentUseCase {
       throw new AppError("Payment without Id");
     }
 
-    const newPayment = await this.paymentRepository.addPixToPayment(
+    await this.paymentRepository.addPixToPayment(
       {
         paymentQRCode: generatePix.request.imagemQrcode,
         paymentQRCodeText: generatePix.request.qrcode,
