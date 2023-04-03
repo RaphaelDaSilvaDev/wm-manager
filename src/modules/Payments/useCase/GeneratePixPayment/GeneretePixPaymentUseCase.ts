@@ -47,6 +47,15 @@ export class GeneretePixPaymentUseCase {
 
     const due = addSeconds(new Date(), expiresSeconds);
 
+    console.log({
+      paymentQRCode: generatePix.request.imagemQrcode,
+      paymentQRCodeText: generatePix.request.qrcode,
+      paymentQRCodeDueDate: due,
+      paymentQRCodePrice: plan.value,
+      paymentTxId: generatePix.charge.txid,
+      status: "pending_payment"
+    });
+
     await this.paymentRepository.addPixToPayment(
       {
         paymentQRCode: generatePix.request.imagemQrcode,
