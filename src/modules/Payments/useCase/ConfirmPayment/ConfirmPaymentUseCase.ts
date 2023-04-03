@@ -2,7 +2,6 @@ import { container, inject, injectable } from "tsyringe";
 import { IConfirmPayment } from "../../interfaces/IConfirmPayment";
 import { IPaymentRepository } from "../../repositories/IPaymentRepository";
 import { AppError } from "../../../../shared/errors/AppError";
-import { CreatePaymentUseCase } from "../CreatePayment/CreatePaymentUseCase";
 
 @injectable()
 export class ConfirmPaymentUseCase {
@@ -18,9 +17,17 @@ export class ConfirmPaymentUseCase {
       throw new AppError("Payment not found!");
     }
 
-    payment.status = "paid";
-    payment.paymentE2EId = data.endToEndId;
-    payment.paymentDate = new Date(data.horario);
+    if (!data.devolucoes) {
+      payment.status = "paid";
+      payment.paymentE2EId = data.endToEndId;
+      payment.paymentDate = new Date(data.horario);
+    } else {
+      if (data.devolucoes.status === "EM_PROCESSAMENTO") {
+        payment.status = "pending_refund";
+      } else if (data.devolucoes.status === "DEVOLVIDO") {
+        payment.status = "refunded";
+      }
+    }
 
     const updatedPayment = await this.paymentRepository.update(payment);
 

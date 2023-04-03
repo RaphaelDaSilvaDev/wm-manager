@@ -1,8 +1,6 @@
 //@ts-ignore
 import Gerencianet from "gn-api-sdk-node";
-import fs from "fs";
-import path from "path";
-import { response } from "express";
+import { options } from "../gnOptions";
 
 interface Props {
   clientDocument: string;
@@ -12,16 +10,6 @@ interface Props {
 }
 
 export async function CreatePaymentPix({ clientDocument, clientName, price, expiresSeconds }: Props) {
-  const certPath = path.resolve("./src/certs/" + process.env.CERT_NAME);
-  const options = {
-    // PRODUÇÃO = false
-    // HOMOLOGAÇÃO = true
-    sandbox: process.env.ENV === "local" ? true : false,
-    client_id: process.env.EFI_CLIENT_ID,
-    client_secret: process.env.EFI_KEY,
-    certificate: certPath
-  };
-
   const gerencianet = new Gerencianet(options);
 
   let body = {
@@ -35,7 +23,7 @@ export async function CreatePaymentPix({ clientDocument, clientName, price, expi
     valor: {
       original: price.toFixed(2)
     },
-    chave: "03319c51-6704-4d56-8b14-97eabd9efe0f" // Informe sua chave Pix cadastrada na gerencianet
+    chave: process.env.PIX_KEY
   };
 
   const charge = await gerencianet.pixCreateImmediateCharge([], body);
