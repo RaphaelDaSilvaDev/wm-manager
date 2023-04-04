@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { CreateClientUseCase } from "./CreateClientUseCase";
 import { CreatePaymentUseCase } from "../../../Payments/useCase/CreatePayment/CreatePaymentUseCase";
-import { addDays } from "date-fns";
+import { addDays, subDays } from "date-fns";
 
 export class CreateClientController {
   async handle(request: Request, response: Response) {
@@ -53,7 +53,7 @@ export class CreateClientController {
       await createPaymentUseCase.execute({
         clientId: client.id,
         plansId: client.plansId,
-        date: addDays(new Date(), 7)
+        date: subDays(new Date(), 23)
       });
     }
 
