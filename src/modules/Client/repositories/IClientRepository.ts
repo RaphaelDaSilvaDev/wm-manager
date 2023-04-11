@@ -8,4 +8,5 @@ export interface IClientRepository {
   findByDocument(document: string): Promise<Client | null>;
   editClient(data: IEditClient, id: string): Promise<Client>;
   createClient(data: ICreateClientPrisma): Promise<Client>;
+  findByClientCode(clientCode: string): Promise<Client | null>;
 }

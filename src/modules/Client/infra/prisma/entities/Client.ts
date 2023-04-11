@@ -21,7 +21,7 @@ export class Client {
   status!: boolean;
   contractorName!: string;
   contractorDocument!: string;
-  plansId!: string;
+  plansId?: string | null;
   createdAt!: Date;
   updatedAt!: Date;
 

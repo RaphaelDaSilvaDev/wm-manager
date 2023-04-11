@@ -4,6 +4,7 @@ import { paymenteRoute } from "./payment.routes";
 import { planRoute } from "./plans.routes";
 import { userRoute } from "./user.routes";
 import { webhookRoute } from "./webhook.routes";
+import { feedBackRoute } from "./feedback.routes";
 
 const router = Router();
 
@@ -12,5 +13,6 @@ router.use("/client", clientRoute);
 router.use("/plan", planRoute);
 router.use("/payment", paymenteRoute);
 router.use("/webhook(/pix)?", webhookRoute);
+router.use("/feedback", feedBackRoute);
 
 export { router };

@@ -10,11 +10,14 @@ import { IUserRepository } from "../../modules/users/repositories/IUserRepositor
 import { LocalStorageProvider } from "./providers/StorageProvider/implementation/LocalStorageProvider";
 import { S3StorageProvider } from "./providers/StorageProvider/implementation/S3StorageProvider";
 import { IStorageProvider } from "./providers/StorageProvider/IStorageProvider";
+import { IFeedBackRepositories } from "../../modules/FeedBack/repositories/IFeedBackRepositories";
+import { FeedBackRepository } from "../../modules/FeedBack/infra/prisma/repositories/FeedBackRepository";
 
 container.registerSingleton<IUserRepository>("UserRepository", UserRepository);
 container.registerSingleton<IClientRepository>("ClientRepository", ClientRepository);
 container.registerSingleton<IPlansRepository>("PlansRepository", PlansRepository);
 container.registerSingleton<IPaymentRepository>("PaymentRepository", PaymentRepository);
+container.registerSingleton<IFeedBackRepositories>("FeedBackRepository", FeedBackRepository);
 
 const diskStorage = {
   local: LocalStorageProvider,

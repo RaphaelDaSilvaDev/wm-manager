@@ -60,4 +60,9 @@ export class ClientRepository implements IClientRepository {
     const client = await prismaClient.client.create({ data });
     return client;
   }
+
+  async findByClientCode(clientCode: string): Promise<Client | null> {
+    const client = await prismaClient.client.findFirst({ where: { clientCode } });
+    return client;
+  }
 }
